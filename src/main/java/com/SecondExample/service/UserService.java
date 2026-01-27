@@ -24,8 +24,20 @@ public class UserService {
     }
 
     // method to get user by name
+    public UserDto getUserByName(String name) {
+        User user = userRepository.findByName(name);
 
-
+        if (user == null) {
+            return null;
+        }
+        
+        return new UserDto(
+                user.getName(),
+                user.getRole(),
+                user.getEmail(),
+                user.getMobileNumbers()
+        );
+    }
 
 
 }
