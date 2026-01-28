@@ -15,14 +15,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // fixMe: Instead of using User use UserDto
+    // POST method to create new users
     @PostMapping
     public UserDto createUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
-    //fixMe: create GET method to get user by name
+    //GET method to get user by name
+    @GetMapping("/name/{name}")
+    public UserDto getUserByName(@PathVariable String name) {
+        return userService.getUserByName(name);
+    }
+
+    //GET method to get user by role
+    @GetMapping("/role/{role}")
+    public List<UserDto> getUsersByRole(@PathVariable String role) {
+        return userService.getUsersByRole(role);
+    }
 
 
+    // Use request params(find by email and mobile num)
 
 }

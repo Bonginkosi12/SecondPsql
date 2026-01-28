@@ -1,3 +1,6 @@
+// DTO(controls what the API exposes)
+// It does not directly exposes the entity(User)
+
 package com.SecondExample.dto;
 
 public class UserDto {
@@ -11,9 +14,6 @@ public class UserDto {
         this.role = role;
         this.email = email;
         this.mobileNumbers = mobileNumbers;
-    }
-
-    public static void setId(Object o) {
     }
 
 

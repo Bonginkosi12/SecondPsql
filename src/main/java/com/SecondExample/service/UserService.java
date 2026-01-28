@@ -6,10 +6,13 @@ import com.SecondExample.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
 
     // Method to create a new user(resource)
     public UserDto createUser(UserDto userDto) {
@@ -23,14 +26,14 @@ public class UserService {
         return userDto;
     }
 
-    // method to get user by name
+    // Method to get user by name
     public UserDto getUserByName(String name) {
         User user = userRepository.findByName(name);
 
         if (user == null) {
             return null;
         }
-        
+
         return new UserDto(
                 user.getName(),
                 user.getRole(),
@@ -39,5 +42,19 @@ public class UserService {
         );
     }
 
+    // Method to get user by role
+    public List<UserDto> getUsersByRole(String role) {
+        List<User> users = userRepository.findByRole(role);
+
+
+        return users.stream()
+                .map(user -> new UserDto(
+                        user.getName(),
+                        user.getRole(),
+                        user.getEmail(),
+                        user.getMobileNumbers()
+                ))
+                .toList();
+    }
 
 }
