@@ -35,5 +35,10 @@ public class UserController {
 
 
     // Use request params(find by email and mobile num)
+    @GetMapping("/search")
+    public UserDto getUserByEmailAndMobileNumber(@RequestParam String email, @RequestParam String mobileNumbers) {
+
+        return userService.getUserByEmailAndMobileNumber(email, mobileNumbers);
+    }
 
 }

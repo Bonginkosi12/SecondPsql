@@ -57,4 +57,21 @@ public class UserService {
                 .toList();
     }
 
+
+    // Method using request params to find user by email and mobileNumbers
+    public UserDto getUserByEmailAndMobileNumber(String email, String mobileNumbers) {
+        User user = userRepository.findByEmailAndMobileNumbers(email, mobileNumbers);
+
+        if (user == null) {
+            return null;
+        }
+
+        return new UserDto(
+                user.getName(),
+                user.getRole(),
+                user.getEmail(),
+                user.getMobileNumbers()
+        );
+    }
+
 }
