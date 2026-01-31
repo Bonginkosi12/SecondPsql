@@ -1,9 +1,9 @@
 package com.SecondExample.controller;
 
 import com.SecondExample.dto.UserDto;
-import com.SecondExample.entity.User;
 import com.SecondExample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +39,26 @@ public class UserController {
     public UserDto getUserByEmailAndMobileNumber(@RequestParam String email, @RequestParam String mobileNumbers) {
 
         return userService.getUserByEmailAndMobileNumber(email, mobileNumbers);
+    }
+
+    //A patch method to update user's email and mobileNumbers
+    @PatchMapping("/{id}")
+    public UserDto updateEmailAndMobile(@PathVariable Integer id, @RequestBody UserDto userDto) {
+
+        return userService.updateEmailAndMobile(id, userDto);
+    }
+
+    //Method to delete user by id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    //A GET method list to return all users order by  name
+    @GetMapping
+    public List<UserDto> getAllUsersOrderedByName() {
+        return userService.getAllUsersOrderedByName();
     }
 
 }

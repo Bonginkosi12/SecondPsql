@@ -4,12 +4,23 @@
 package com.SecondExample.dto;
 
 public class UserDto {
+    private Integer id;
     private String name;
     private String role;
     private String email;
     private String mobileNumbers;
 
+    public UserDto(){}
     public UserDto(String name, String role, String email, String mobileNumbers) {
+        this.name = name;
+        this.role = role;
+        this.email = email;
+        this.mobileNumbers = mobileNumbers;
+
+    }
+
+    public UserDto(Integer id, String name, String email, String role, String mobileNumbers) {
+        this.id = id;
         this.name = name;
         this.role = role;
         this.email = email;

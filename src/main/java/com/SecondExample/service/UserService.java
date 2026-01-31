@@ -74,4 +74,52 @@ public class UserService {
         );
     }
 
+    //A patch method to update user's email and mobileNumbers
+    public UserDto updateEmailAndMobile(Integer id, UserDto userDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (userDto.getEmail() != null) {
+            user.setEmail(userDto.getEmail());
+        }
+
+        if (userDto.getMobileNumbers() != null) {
+            user.setMobileNumbers(userDto.getMobileNumbers());
+        }
+
+          userRepository.save(user);
+
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getMobileNumbers()
+        );
+    }
+
+    // Method to delete user
+    public void deleteUserById(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        userRepository.delete(user);
+    }
+
+    //A GET method list to return all users order by  name
+    public List<UserDto> getAllUsersOrderedByName() {
+
+        List<User> users = userRepository.findAllByOrderByNameAsc();
+
+        return users.stream()
+                .map(user -> new UserDto(
+                        user.getId(),
+                        user.getName(),
+                        user.getRole(),
+                        user.getEmail(),
+                        user.getMobileNumbers()
+                ))
+                .toList();
+    }
+
 }

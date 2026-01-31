@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
    //query to get user by email and mobile numbers(using request params)
     User findByEmailAndMobileNumbers(String email, String mobileNumbers);
+
+    List<User> findAllByOrderByNameAsc();
 }
