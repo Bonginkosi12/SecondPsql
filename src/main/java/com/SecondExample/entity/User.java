@@ -1,7 +1,8 @@
 //This is the class that is tied to the database
 //
-package com.SecondExample.entity;
 
+
+package com.SecondExample.entity;
 import jakarta.persistence.*;
 
 @Entity

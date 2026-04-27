@@ -1,3 +1,8 @@
+// Handles HPP requests from the client(POST,GET,PUT,PATCH, and DELETE)
+//Accepts data in a JSON format
+//Returns JSON responses
+// Communicates with the Service layer
+
 package com.SecondExample.controller;
 
 import com.SecondExample.dto.UserDto;
@@ -35,6 +40,7 @@ public class UserController {
 
 
     // Use request params(find by email and mobile num)
+    //These are key value pairs or extra details that the client sends to the server along with the HTTP method to control or get the desired response
     @GetMapping("/search")
     public UserDto getUserByEmailAndMobileNumber(@RequestParam String email, @RequestParam String mobileNumbers) {
 
@@ -59,6 +65,13 @@ public class UserController {
     @GetMapping
     public List<UserDto> getAllUsersOrderedByName() {
         return userService.getAllUsersOrderedByName();
+    }
+
+     // PUT method to fully update user's information
+    @PutMapping("/{id}")
+    public UserDto updateUser(@PathVariable Integer id, @RequestBody UserDto userDto) {
+
+        return userService.updateUser(id, userDto);
     }
 
 }

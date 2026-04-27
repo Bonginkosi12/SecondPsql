@@ -1,3 +1,8 @@
+// Contains business logic
+// Decides what should happen
+// Coordinates data from repositories
+// Communicates with the Repository layer
+
 package com.SecondExample.service;
 
 import com.SecondExample.dto.UserDto;
@@ -46,15 +51,12 @@ public class UserService {
     public List<UserDto> getUsersByRole(String role) {
         List<User> users = userRepository.findByRole(role);
 
-
-        return users.stream()
-                .map(user -> new UserDto(
-                        user.getName(),
-                        user.getRole(),
-                        user.getEmail(),
-                        user.getMobileNumbers()
-                ))
-                .toList();
+        return users.stream().map(user -> new UserDto(
+                user.getName(),
+                user.getRole(),
+                user.getEmail(),
+                user.getMobileNumbers()
+        )).toList();
     }
 
 
@@ -87,7 +89,7 @@ public class UserService {
             user.setMobileNumbers(userDto.getMobileNumbers());
         }
 
-          userRepository.save(user);
+        userRepository.save(user);
 
         return new UserDto(
                 user.getId(),
@@ -111,15 +113,34 @@ public class UserService {
 
         List<User> users = userRepository.findAllByOrderByNameAsc();
 
-        return users.stream()
-                .map(user -> new UserDto(
-                        user.getId(),
-                        user.getName(),
-                        user.getRole(),
-                        user.getEmail(),
-                        user.getMobileNumbers()
-                ))
-                .toList();
+        return users.stream().map(user -> new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getRole(),
+                user.getEmail(),
+                user.getMobileNumbers()
+        )).toList();
     }
 
+    //A PUT method to fully update the user
+    public UserDto updateUser(Integer id, UserDto userDto) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // FULL update (replace everything)
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setMobileNumbers(userDto.getMobileNumbers());
+        user.setRole(userDto.getRole());
+        userRepository.save(user);
+
+        return new UserDto(
+                user.getName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getMobileNumbers()
+        );
+
+    }
 }
